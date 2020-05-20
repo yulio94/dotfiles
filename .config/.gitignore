@@ -1,0 +1,12 @@
+#Ignore all files
+/*
+
+#Folder and file exception
+!.gitignore
+!nvim
+!qtile
+!gtk-3.0
+!kitty
+!nvim-gtk
+!htop
+!fontconfig
