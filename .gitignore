@@ -1,0 +1,13 @@
+#Ignore everything
+
+/*
+
+!.gitignore
+
+#Folders
+!.config
+
+#Files
+!README.md
+!.bashrc
+!.zshrc

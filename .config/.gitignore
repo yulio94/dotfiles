@@ -1,0 +1,9 @@
+#Ignore everything
+/*
+
+#Folders
+!nvim
+!alacritty
+
+#Files
+!.gitignore
