@@ -4,6 +4,7 @@
 #Folders
 !nvim
 !alacritty
+!kitty
 
 #Files
 !.gitignore
