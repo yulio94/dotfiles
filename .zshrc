@@ -31,6 +31,9 @@ alias update="sudo apt-get update; sudo apt-get upgrade"
 alias startvpn="sudo cyberghostvpn --traffic --country-code US --connect --wireward"
 alias stopvpn="sudo cyberghostvpn --stop"
 
+# Auto completion
+eval "$(pipenv --completion)"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
