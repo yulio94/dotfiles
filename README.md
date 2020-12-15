@@ -1,2 +1,2 @@
 # Dotfiles and configs
-My configuration in archlinux
+My dotfiles
