@@ -1,14 +1,1 @@
-#Ignore everything
-/*
-
-!.gitignore
-
-#Folders and files.
-
-!README.md
-!.spectrum.conf
-!.screenlayout
-!xsession
-!Xresources
-!.config
 
