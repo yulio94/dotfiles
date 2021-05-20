@@ -37,7 +37,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	Plug 'scrooloose/nerdtree'|
             \ Plug 'Xuyuanp/nerdtree-git-plugin'|
 	    \ Plug 'ryanoasis/vim-devicons'
-
+	
 	" Nord-theme
 	Plug 'arcticicestudio/nord-vim'
 
@@ -49,7 +49,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 	" Highlight yank
 	Plug 'machakann/vim-highlightedyank'
-
+	
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
+	Plug 'airblade/vim-rooter'
 call plug#end()
 
 " CONFIGURATIONS
@@ -91,6 +94,7 @@ let g:neomake_python_enabled_makers = ['flake8']
 
 " NerdTree
 nnoremap <F2> :NERDTreeToggle<Enter>
+let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -225,3 +229,4 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
