@@ -17,7 +17,7 @@ alias mkctl="microk8s kubectl"
 alias workdir="cd /home/yulio94/Documents/projects/linets/"
 alias personaldir="cd /home/yulio94/Documents/projects/personal/"
 alias coursesdir="cd /home/yulio94/Documents/projects/courses/"
-
+alias uyalaak="cd /home/yulio94/Documents/projects/uyalaak/"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yulio94/.oh-my-zsh"
