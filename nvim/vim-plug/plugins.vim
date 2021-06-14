@@ -10,6 +10,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 	"VISUAL & STYLING
 
+	" Better whitespaces
+	Plug 'ntpeters/vim-better-whitespace'
+	
 	" Airline status bar
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'

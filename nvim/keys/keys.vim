@@ -1,5 +1,9 @@
 " CONFIGURATIONS
 
+" Whitesapces
+set list
+set listchars=eol:$,nbsp:_,tab:>-,trail:~,extends:>,precedes:<
+
 " Number
 set number relativenumber
 " Theme
@@ -7,7 +11,7 @@ colorscheme nord
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='wombat' " <theme> is a valid theme name
+let g:airline_theme='angr' " <theme> is a valid theme name
 
 " Enable alignment
 let g:neoformat_basic_format_align = 1

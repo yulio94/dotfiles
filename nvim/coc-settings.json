@@ -1,9 +1,11 @@
 {
   "python.linting.pylintEnabled": true,
   "coc.preferences.formatOnSaveFiletypes": [
+    "html",
     "css",
     "Markdown",
     "python",
+    "javascript",
     "json",
     "elixir"
   ],
