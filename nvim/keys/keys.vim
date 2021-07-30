@@ -6,8 +6,6 @@ set listchars=eol:$,nbsp:_,tab:>-,trail:~,extends:>,precedes:<
 
 " Number
 set number relativenumber
-" Theme
-colorscheme nord
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1

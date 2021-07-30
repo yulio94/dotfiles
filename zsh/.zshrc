@@ -1,23 +1,17 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Autocomplete kitty
-autoload -Uz compinit
-compinit
-# Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
-
 # Aliases
-alias ls='lsd'
+# alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias mkctl="microk8s kubectl"
-alias workdir="cd /home/yulio94/Documents/projects/linets/"
-alias personaldir="cd /home/yulio94/Documents/projects/personal/"
-alias coursesdir="cd /home/yulio94/Documents/projects/courses/"
-alias uyalaak="cd /home/yulio94/Documents/projects/uyalaak/"
+alias workdir="cd /home/yulio94/projects/linets/"
+alias personaldir="cd /home/yulio94/projects/personal/"
+alias coursesdir="cd /home/yulio94/projects/courses/"
+alias uyaalak="cd /home/yulio94/projects/uyaalak/"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yulio94/.oh-my-zsh"
@@ -124,7 +118,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Deno 
+# Deno
 export DENO_INSTALL="/home/yulio94/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
@@ -132,6 +126,9 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Flutter
+export PATH="$HOME/flutter/bin:$PATH"
 
 # Poetry (python package manager)
 export PATH="$HOME/.poetry/bin:$PATH"
