@@ -132,3 +132,6 @@ export PATH="$HOME/flutter/bin:$PATH"
 
 # Poetry (python package manager)
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# Go
+export PATH="$PATH:/usr/local/go/bin"
