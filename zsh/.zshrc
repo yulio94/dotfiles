@@ -8,9 +8,10 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias mkctl="microk8s kubectl"
-alias workdir="cd /home/yulio94/projects/linets/"
-alias personaldir="cd /home/yulio94/projects/personal/"
-alias coursesdir="cd /home/yulio94/projects/courses/"
+alias linets="cd /home/yulio94/projects/linets/"
+alias rankmi="cd /home/yulio94/projects/rankmi/"
+alias personal="cd /home/yulio94/projects/personal/"
+alias courses="cd /home/yulio94/projects/courses/"
 alias uyaalak="cd /home/yulio94/projects/uyaalak/"
 
 # Path to your oh-my-zsh installation.
@@ -83,7 +84,6 @@ ZSH_THEME="dracula"
 plugins=(git
 	 git-prompt
 	 gitignore 
-	 django 
 	 alias-finder 
 	 command-not-found 
 	 compleat 
