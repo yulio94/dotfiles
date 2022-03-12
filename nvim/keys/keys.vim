@@ -1,15 +1,7 @@
 " CONFIGURATIONS
 
-" Whitesapces
-set list
-set listchars=eol:$,nbsp:_,tab:>-,trail:~,extends:>,precedes:<
-
 " Number
 set number relativenumber
-
-" Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='angr' " <theme> is a valid theme name
 
 " Enable alignment
 let g:neoformat_basic_format_align = 1
@@ -37,11 +29,6 @@ let g:neomake_python_enabled_makers = ['flake8']
 
 " NerdTree
 nnoremap <F2> :NERDTreeToggle<Enter>
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeAutoDeleteBuffer = 1
 
 " Buffers
 nnoremap <C-l> :bnext<CR>

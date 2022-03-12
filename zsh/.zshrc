@@ -1,8 +1,14 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Aliases
-# alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
@@ -13,6 +19,7 @@ alias rankmi="cd /home/yulio94/projects/rankmi/"
 alias personal="cd /home/yulio94/projects/personal/"
 alias courses="cd /home/yulio94/projects/courses/"
 alias uyaalak="cd /home/yulio94/projects/uyaalak/"
+alias newai="cd /home/yulio94/projects/newai/"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yulio94/.oh-my-zsh"
@@ -21,7 +28,7 @@ export ZSH="/home/yulio94/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="dracula"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -83,12 +90,16 @@ ZSH_THEME="dracula"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
 	 git-prompt
-	 gitignore 
-	 alias-finder 
-	 command-not-found 
-	 compleat 
-	 docker 
-	 sudo)
+	 gitignore
+	 alias-finder
+	 command-not-found
+	 compleat
+	 docker
+	 sudo
+	 git
+	 zsh-autosuggestions
+	 zsh-syntax-highlighting
+ )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -122,11 +133,6 @@ source $ZSH/oh-my-zsh.sh
 export DENO_INSTALL="/home/yulio94/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Flutter
 export PATH="$HOME/flutter/bin:$PATH"
 
@@ -135,3 +141,27 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # Go
 export PATH="$PATH:/usr/local/go/bin"
+
+# Batigit
+export PATH="/usr/local/bin/batigit/:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+#pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
+
+#PDM and probably another stuff
+export PATH=/home/yulio94/.local/bin:$PATH
