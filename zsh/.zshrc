@@ -20,6 +20,7 @@ alias personal="cd /home/yulio94/projects/personal/"
 alias courses="cd /home/yulio94/projects/courses/"
 alias uyaalak="cd /home/yulio94/projects/uyaalak/"
 alias newai="cd /home/yulio94/projects/newai/"
+alias matrix="/home/yulio94/bin/matrix/matrix"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yulio94/.oh-my-zsh"
@@ -165,3 +166,4 @@ export NVM_DIR="$HOME/.nvm"
 
 #PDM and probably another stuff
 export PATH=/home/yulio94/.local/bin:$PATH
+

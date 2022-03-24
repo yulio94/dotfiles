@@ -34,15 +34,15 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Emmet
 	Plug 'mattn/emmet-vim'
 
+	" Dracula
+	Plug 'dracula/vim', { 'as': 'dracula' }
+
 	"CODING
 
-	" Code completion
+	" COC
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-	" Elixir language
-	Plug 'elixir-editors/vim-elixir'
-
-	" LINTING
+	"" LINTING
 
 	" Highlight yank
 	Plug 'machakann/vim-highlightedyank'
@@ -53,18 +53,20 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Code checker
 	Plug 'neomake/neomake'
 
+	" Elxir code highlighting
+	Plug 'elixir-editors/vim-elixir'
 
 	" OTHERS
 
 	" Vim multiple cursors
 	Plug 'terryma/vim-multiple-cursors'
 
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'airblade/vim-rooter'
 
-	" Git blame
-	Plug 'APZelos/blamer.nvim'
+	" Git
+	Plug 'tpope/vim-fugitive'
 
 call plug#end()
 

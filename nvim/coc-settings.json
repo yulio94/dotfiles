@@ -12,5 +12,6 @@
     "yaml"
   ],
   "eslint.run": ["onSave"],
-  "yaml.format.enable": true
+  "yaml.format.enable": true,
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }

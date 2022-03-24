@@ -9,3 +9,13 @@ let NERDTreeAutoDeleteBuffer = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='angr' " <theme> is a valid theme name
 
+
+" Theme
+colorscheme dracula
+
+" Enable syntax highlighting
+syntax on
+
+" Enables filetype detection, loads ftplugin, and loads indent
+" (Not necessary on nvim and may not be necessary on vim 8.2+)
+filetype plugin indent on
