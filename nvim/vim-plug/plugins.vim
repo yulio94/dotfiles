@@ -67,6 +67,7 @@ call plug#begin(stdpath('config') . '/plugged')
 
 	" Git
 	Plug 'tpope/vim-fugitive'
+	Plug 'zivyangll/git-blame.vim'
 
 call plug#end()
 
