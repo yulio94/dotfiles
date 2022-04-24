@@ -9,11 +9,15 @@ fi
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Aliases
+
+# LSD
+alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
-alias mkctl="microk8s kubectl"
+
+# Short directories
 alias linets="cd /home/yulio94/projects/linets/"
 alias rankmi="cd /home/yulio94/projects/rankmi/"
 alias personal="cd /home/yulio94/projects/personal/"
@@ -21,6 +25,9 @@ alias courses="cd /home/yulio94/projects/courses/"
 alias uyaalak="cd /home/yulio94/projects/uyaalak/"
 alias newai="cd /home/yulio94/projects/newai/"
 alias matrix="/home/yulio94/bin/matrix/matrix"
+
+# Lazydocker
+alias lazydocker="TERM=screen-256color lazydocker"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yulio94/.oh-my-zsh"
