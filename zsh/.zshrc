@@ -14,6 +14,9 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 
+# Tmux
+alias t='tmux'
+
 # Short directories
 alias linets="cd /home/yulio94/projects/linets/"
 alias rankmi="cd /home/yulio94/projects/rankmi/"
@@ -85,7 +88,7 @@ export PATH=/home/yulio94/.local/bin:$PATH
 
 # sdkmanager
 export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions'
-export JAVA_HOME='/usr/lib/jvm/java-8-openjdk'
+export JAVA_HOME='/usr/lib/jvm/java-17-amazon-corretto'
 export ANDROID_SDK_ROOT='/opt/android-sdk'
 export CHROME_EXECUTABLE='/usr/bin/brave'
 
@@ -95,3 +98,5 @@ eval $(keychain --eval --quiet id_ed25519)
 
 # Docker
 export PATH="$HOME/.docker:$PATH"
+alias matrix="/home/yulio94/rankmi/matrix/matrix"
+eval "$(matrix init)"
