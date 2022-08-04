@@ -96,7 +96,6 @@ export CHROME_EXECUTABLE='/usr/bin/brave'
 eval $(keychain --eval --quiet id_ed25519)
 
 
-# Docker
-export PATH="$HOME/.docker:$PATH"
+# Matrix
 alias matrix="/home/yulio94/rankmi/matrix/matrix"
 eval "$(matrix init)"

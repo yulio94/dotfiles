@@ -1,0 +1,75 @@
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# LSD
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
+# Tmux
+alias t='tmux'
+
+# Short directories
+alias linets="cd /Users/yulio_94/projects/linets/"
+alias rankmi="cd /Users/yulio_94/projects/rankmi/"
+alias personal="cd /Users/yulio_94/projects/personal/"
+alias courses="cd /Users/yulio_94/projects/courses/"
+alias uyaalak="cd /Users/yulio_94/projects/uyaalak/"
+alias newai="cd /Users/yulio_94/projects/newai/"
+alias matrix="/Users/yulio_94/bin/matrix/matrix"
+
+# Lazydocker
+# alias lazydocker="TERM=screen-256color lazydocker"
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/yulio_94/.oh-my-zsh"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+plugins=(git
+	 git-prompt
+	 gitignore
+	 alias-finder
+	 command-not-found
+	 compleat
+	 docker
+	 sudo
+	 git
+	 zsh-autosuggestions
+	 zsh-syntax-highlighting
+ )
+
+source $ZSH/oh-my-zsh.sh
+ 
+# Poetry (python package manager)
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# Go
+export PATH="$PATH:/usr/local/go/bin"
+
+# Batigit
+export PATH="/usr/local/bin/batigit/:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# Matrix
+alias matrix="/Users/yulio_94/rankmi/matrix/matrix"
+eval "$(matrix init)"
+
+# Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# rosetta terminal setup
+if [ $(arch) = "i386" ]; then
+    alias brew86="/usr/local/bin/brew"
+    alias pyenv86="arch -x86_64 pyenv"
+fi
