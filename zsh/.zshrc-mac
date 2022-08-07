@@ -15,7 +15,7 @@ alias t='tmux'
 
 # Short directories
 alias linets="cd /Users/yulio_94/projects/linets/"
-alias rankmi="cd /Users/yulio_94/projects/rankmi/"
+alias rankmi="cd /Users/yulio_94/rankmi/"
 alias personal="cd /Users/yulio_94/projects/personal/"
 alias courses="cd /Users/yulio_94/projects/courses/"
 alias uyaalak="cd /Users/yulio_94/projects/uyaalak/"
@@ -71,3 +71,10 @@ if [ $(arch) = "i386" ]; then
 fi
 alias matrix="/Users/yulio_94/rankmi/matrix/matrix"
 eval "$(matrix init)"
+
+source ~/.iterm2_shell_integration.zsh
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
