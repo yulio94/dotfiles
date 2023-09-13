@@ -1,29 +1,31 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# LSD
-alias ls='lsd'
-alias l='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
+
+# Editor
+export EDITOR="nvim"
+
+# Envs
+export PATH=$HOME/.local/bin:$PATH
+
+# Amplify
+export PATH="$HOME/.amplify/bin:$PATH"
+
 
 # Tmux
 alias t='tmux'
 
 # Short directories
-alias linets="cd /Users/yulio_94/projects/linets/"
 alias rankmi="cd /Users/yulio_94/rankmi/"
 alias personal="cd /Users/yulio_94/projects/personal/"
 alias courses="cd /Users/yulio_94/projects/courses/"
 alias uyaalak="cd /Users/yulio_94/projects/uyaalak/"
 alias newai="cd /Users/yulio_94/projects/newai/"
-alias matrix="/Users/yulio_94/bin/matrix/matrix"
-
-# Lazydocker
-# alias lazydocker="TERM=screen-256color lazydocker"
+alias matrix="/Users/yulio_94/rankmi/matrix/matrix"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/yulio_94/.oh-my-zsh"
@@ -41,12 +43,13 @@ plugins=(git
 	 git
 	 zsh-autosuggestions
 	 zsh-syntax-highlighting
+	 you-should-use
  )
 
+# ZSH Autosuggest
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080,bold,underline"
+
 source $ZSH/oh-my-zsh.sh
- 
-# Poetry (python package manager)
-export PATH="$HOME/.poetry/bin:$PATH"
 
 # Go
 export PATH="$PATH:/usr/local/go/bin"
@@ -54,11 +57,8 @@ export PATH="$PATH:/usr/local/go/bin"
 # Batigit
 export PATH="/usr/local/bin/batigit/:$PATH"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 # Matrix
-alias matrix="/Users/yulio_94/rankmi/matrix/matrix"
 eval "$(matrix init)"
 
 # Brew
@@ -67,14 +67,33 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # rosetta terminal setup
 if [ $(arch) = "i386" ]; then
     alias brew86="/usr/local/bin/brew"
-    alias pyenv86="arch -x86_64 pyenv"
 fi
-alias matrix="/Users/yulio_94/rankmi/matrix/matrix"
-eval "$(matrix init)"
+
 
 source ~/.iterm2_shell_integration.zsh
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+export PATH="$PATH:/Users/yulio_94/dev-tools/flutter/bin"
+
+source /Users/yulio_94/.docker/init-zsh.sh || true # Added by Docker Desktop
+
+source /Users/yulio_94/dotfiles/zsh/utils/zoxide # Zoxide configuration.
+
+
+# EXA
+alias ls='exa -lh --accessed --modified --created -F -l -x --icons --colour auto'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+# bun completions
+[ -s "/Users/yulio_94/.bun/_bun" ] && source "/Users/yulio_94/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

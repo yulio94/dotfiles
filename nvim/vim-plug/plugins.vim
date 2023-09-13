@@ -37,24 +37,46 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Dracula
 	Plug 'dracula/vim', { 'as': 'dracula' }
 
+	" Catpucchin
+	Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+
+	" LSP progress.
+	Plug 'j-hui/fidget.nvim'
+
 	"CODING
 
-	" COC
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	" LSP
+	Plug 'neovim/nvim-lspconfig'
 
-	"" LINTING
+	"Code snippets
+	Plug 'hrsh7th/nvim-cmp'
+  	Plug 'hrsh7th/cmp-nvim-lsp'
+  	Plug 'hrsh7th/cmp-vsnip'
+  	Plug 'hrsh7th/vim-vsnip'
+	Plug 'onsails/lspkind-nvim'
+	Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.2.1', 'do': 'make install_jsregexp'}
+
+
+	" LINTING
 
 	" Highlight yank
 	Plug 'machakann/vim-highlightedyank'
 
+	" Syntax
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+
+	" ALE
+	Plug 'dense-analysis/ale'
+
 	" Autoformat
-	Plug 'sbdchd/neoformat'
+	" Plug 'sbdchd/neoformat'
 
 	" Code checker
-	Plug 'neomake/neomake'
+	" Plug 'neomake/neomake'
 
 	" Elxir code highlighting
-	Plug 'elixir-editors/vim-elixir'
+	" Plug 'elixir-editors/vim-elixir'
 
 	" OTHERS
 
@@ -67,7 +89,12 @@ call plug#begin(stdpath('config') . '/plugged')
 
 	" Git
 	Plug 'tpope/vim-fugitive'
-	Plug 'zivyangll/git-blame.vim'
+	Plug 'lewis6991/gitsigns.nvim'
+
+	" Debugging
+	Plug 'mfussenegger/nvim-dap'
+	Plug 'theHamsta/nvim-dap-virtual-text'
+	Plug 'mfussenegger/nvim-dap-python'
 
 call plug#end()
 

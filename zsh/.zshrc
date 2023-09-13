@@ -4,6 +4,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 # Aliases
 
@@ -24,7 +25,7 @@ alias personal="cd /home/yulio94/projects/personal/"
 alias courses="cd /home/yulio94/projects/courses/"
 alias uyaalak="cd /home/yulio94/projects/uyaalak/"
 alias newai="cd /home/yulio94/projects/newai/"
-alias matrix="/home/yulio94/bin/matrix/matrix"
+alias matrix="/home/yulio94/rankmi/matrix/matrix"
 
 # Lazydocker
 alias lazydocker="TERM=screen-256color lazydocker"
@@ -55,9 +56,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Flutter
 export PATH="$HOME/flutter/bin:$PATH"
-
-# Poetry (python package manager)
-export PATH="$HOME/.poetry/bin:$PATH"
 
 # Go
 export PATH="$PATH:/usr/local/go/bin"
