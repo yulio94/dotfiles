@@ -73,10 +73,10 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Plug 'sbdchd/neoformat'
 
 	" Code checker
-	" Plug 'neomake/neomake'
+	Plug 'neomake/neomake'
 
 	" Elxir code highlighting
-	" Plug 'elixir-editors/vim-elixir'
+	Plug 'elixir-editors/vim-elixir'
 
 	" OTHERS
 

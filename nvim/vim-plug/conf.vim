@@ -7,7 +7,7 @@ let NERDTreeAutoDeleteBuffer = 1
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='angr' " <theme> is a valid theme name
+let g:airline_theme='catppuccin' " <theme> is a valid theme name
 
 
 " Enable syntax highlighting

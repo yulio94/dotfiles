@@ -4,10 +4,14 @@ vim.cmd('source $HOME/.config/nvim/keys/keys.vim')
 
 
 require("catppuccin").setup({
-	flavour = "frappe",
+	flavour = "macchiato",
 	integrations = {
 		cmp = true,
 		treesitter=true,
+        	gitsigns = true,
+        	nvimtree = true,
+        	notify = false,
+        	mini = false,
 	}
 })
 
@@ -103,12 +107,12 @@ local on_attach = function(_, bufnr)
   local map_opts = {noremap = true, silent = true}
 
   map("n", "df", "<cmd>lua vim.lsp.buf.formatting()<cr>", map_opts)
-  map("n", "gd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", map_opts)
-  map("n", "dt", "<cmd>lua vim.lsp.buf.definition()<cr>", map_opts)
+  map("n", "sl", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", map_opts)
+  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", map_opts)
   map("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", map_opts)
-  map("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
+  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
   map("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", map_opts)
-  map("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
+  map("n", "1gd", "<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
 
   -- These have a different style than above because I was fiddling
   -- around and never converted them. Instead of converting them
