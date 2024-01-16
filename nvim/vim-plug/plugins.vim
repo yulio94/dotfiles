@@ -34,11 +34,16 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Emmet
 	Plug 'mattn/emmet-vim'
 
+
+	" THEMES
+
 	" Dracula
 	Plug 'dracula/vim', { 'as': 'dracula' }
 
 	" Catpucchin
 	Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+
+	Plug 'cocopon/iceberg.vim', { 'as': 'iceberg'}
 
 	" LSP progress.
 	Plug 'j-hui/fidget.nvim'
