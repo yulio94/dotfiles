@@ -37,12 +37,6 @@ call plug#begin(stdpath('config') . '/plugged')
 
 	" THEMES
 
-	" Dracula
-	Plug 'dracula/vim', { 'as': 'dracula' }
-
-	" Catpucchin
-	Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-
 	Plug 'cocopon/iceberg.vim', { 'as': 'iceberg'}
 
 	" LSP progress.
@@ -50,7 +44,7 @@ call plug#begin(stdpath('config') . '/plugged')
 
 	"CODING
 
-	" LSP
+	" LSP: ships the per-server defaults that vim.lsp.enable() reads.
 	Plug 'neovim/nvim-lspconfig'
 
 	"Code snippets
@@ -59,7 +53,6 @@ call plug#begin(stdpath('config') . '/plugged')
   	Plug 'hrsh7th/cmp-vsnip'
   	Plug 'hrsh7th/vim-vsnip'
 	Plug 'onsails/lspkind-nvim'
-	Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.2.1', 'do': 'make install_jsregexp'}
 
 
 	" LINTING
@@ -70,18 +63,16 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Syntax
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-
-	" ALE
-	Plug 'dense-analysis/ale'
-
-	" Autoformat
-	" Plug 'sbdchd/neoformat'
-
-	" Code checker
-	Plug 'neomake/neomake'
+	" Renders markdown in the buffer
+	Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 	" Elxir code highlighting
 	Plug 'elixir-editors/vim-elixir'
+
+	" LEARNING
+
+	" Motion hints, drawn on the current line
+	Plug 'tris203/precognition.nvim'
 
 	" OTHERS
 
@@ -102,4 +93,3 @@ call plug#begin(stdpath('config') . '/plugged')
 	Plug 'mfussenegger/nvim-dap-python'
 
 call plug#end()
-

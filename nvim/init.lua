@@ -1,43 +1,35 @@
+-- Leader must be set before keys.vim defines any <leader> mapping.
+vim.g.mapleader = ' '
+
 vim.cmd('source $HOME/.config/nvim/vim-plug/plugins.vim')
 vim.cmd('source $HOME/.config/nvim/vim-plug/conf.vim')
 vim.cmd('source $HOME/.config/nvim/keys/keys.vim')
 
+vim.cmd.colorscheme "iceberg"
 
-require("catppuccin").setup({
-	flavour = "macchiato",
-	integrations = {
-		cmp = true,
-		treesitter=true,
-        	gitsigns = true,
-        	nvimtree = true,
-        	notify = false,
-        	mini = false,
-	}
+
+-- Claude Code writes files from the tmux pane next door. Reload what changed
+-- on disk, and keep undo across sessions so its edits stay revertible.
+vim.o.autoread = true
+vim.o.undofile = true
+vim.o.updatetime = 300
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'TermLeave' }, {
+  command = 'if mode() != "c" | checktime | endif',
 })
 
-vim.cmd.colorscheme "iceberg"
-vim.o.background = "light"
+vim.api.nvim_create_autocmd('FileChangedShellPost', {
+  command = 'echohl WarningMsg | echo "buffer reloaded from disk" | echohl None',
+})
 
 
-local lspconfig = require('lspconfig')
-
--- Neovim doesn't support snippets out of the box, so we need to mutate the
--- capabilities we send to the language server to let them know we want snippets.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-
--- Setup our autocompletion. These configuration options are the default ones
--- copied out of the documentation.
-local luasnip = require("luasnip")
+-- Autocompletion. Snippets are expanded by vsnip, which is also the cmp source.
 local cmp = require("cmp")
-
-local select_opts = {behavior = cmp.SelectBehavior.Select}
+local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      -- For `vsnip` user.
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },
@@ -50,22 +42,6 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-    ["<C->"] = cmp.mapping.confirm({ select = true }),
-    ['<C-f>'] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(1) then
-        luasnip.jump(1)
-      else
-        fallback()
-      end
-    end, {'i', 's'}),
-
-    ['<C-b>'] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, {'i', 's'}),
 
     ['<Tab>'] = cmp.mapping(function(fallback)
       local col = vim.fn.col('.') - 1
@@ -101,51 +77,45 @@ cmp.setup({
   },
 })
 
-local on_attach = function(_, bufnr)
-  local function map(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
-  local map_opts = {noremap = true, silent = true}
 
-  map("n", "df", "<cmd>lua vim.lsp.buf.formatting()<cr>", map_opts)
-  map("n", "sl", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", map_opts)
-  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", map_opts)
-  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", map_opts)
-  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
-  map("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", map_opts)
-  map("n", "1gd", "<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
+-- LSP. nvim-lspconfig only ships the per-server defaults in its lsp/ dir now;
+-- vim.lsp.enable() reads them off the runtimepath. No require('lspconfig').
+vim.lsp.config('*', {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
 
-  -- These have a different style than above because I was fiddling
-  -- around and never converted them. Instead of converting them
-  -- now, I'm leaving them as they are for this article because this is
-  -- what I actually use, and hey, it works ¯\_(ツ)_/¯.
-  -- vim.cmd [[imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
-  -- vim.cmd [[smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
+vim.lsp.config('elixirls', {
+  cmd = { vim.fn.expand('~/stuffs/elixir-ls/release/language_server.sh') },
+  settings = {
+    elixirLS = {
+      -- dialyzer off on purpose, and dep fetching gets the .elixir_ls dir into
+      -- a state that needs deleting and restarting the editor.
+      dialyzerEnabled = false,
+      fetchDeps = false,
+    },
+  },
+})
 
-  -- vim.cmd [[imap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
-  -- vim.cmd [[smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
-  -- vim.cmd [[imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
-  -- vim.cmd [[smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
+-- ruff = lint + format (reads [tool.ruff] from the project's pyproject.toml),
+-- ty = types. Both already on PATH.
+vim.lsp.enable({ 'ruff', 'ty', 'gopls', 'lua_ls', 'elixirls' })
 
-  -- vim.cmd [[inoremap <silent><expr> <C-Space> compe#complete()]]
-  -- vim.cmd [[inoremap <silent><expr> <CR> compe#confirm('<CR>')]]
-  -- vim.cmd [[inoremap <silent><expr> <C-e> compe#close('<C-e>')]]
-  -- vim.cmd [[inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })]]
-  -- vim.cmd [[inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })]]
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local opts = { buffer = ev.buf, silent = true }
+    -- K, grn, gra, grr, gri, grt and insert-mode <C-s> are 0.11+ defaults.
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'df', function() vim.lsp.buf.format() end, opts)
+    vim.keymap.set('n', 'sl', vim.diagnostic.open_float, opts)
+  end,
+})
 
-  -- tell nvim-cmp about our desired capabilities
-  require("cmp_nvim_lsp").update_capabilities(capabilities)
-end
-
-lspconfig.pyright.setup{
-on_attach=on_attach
-}
-
-
-local path_to_elixirls = vim.fn.expand("/Users/yulio_94/stuffs/elixir-ls/release/language_server.sh")
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"elixir", "python", "bash", "javascript", "typescript", "go", "json", "html"},
+  -- markdown_inline is separate from markdown on purpose: the main grammar does
+  -- block structure, the inline one does emphasis, links and inline code.
+  ensure_installed = {"elixir", "python", "bash", "javascript", "typescript", "go", "json",
+                      "html", "markdown", "markdown_inline"},
   sync_install = false,
   ignore_install = { },
   indent = {enable = true},
@@ -155,34 +125,12 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-lspconfig.elixirls.setup(
-{
-  cmd = {path_to_elixirls},
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    elixirLS = {
-      -- I choose to disable dialyzer for personal reasons, but
-      -- I would suggest you also disable it unless you are well
-      -- aquainted with dialzyer and know how to use it.
-      dialyzerEnabled = false,
-      -- I also choose to turn off the auto dep fetching feature.
-      -- It often get's into a weird state that requires deleting
-      -- the .elixir_ls directory and restarting your editor.
-      fetchDeps = false
-    }
-  }
-}
-)
+-- Renders headings, code blocks, tables and checkboxes in place. The line the
+-- cursor sits on un-renders itself, so the file stays editable.
+require('render-markdown').setup({})
 
--- Bashls.
-lspconfig.bashls.setup{}
-
--- Gopls.
-lspconfig.gopls.setup{}
-
--- Lua LSP.
-lspconfig.lua_ls.setup{}
+-- Faint marks on the current line showing where w, b, e, ^ and $ land.
+require('precognition').setup({ startVisible = true })
 
 -- Configs loading of LSP.
 require"fidget".setup{}
@@ -190,6 +138,15 @@ require"fidget".setup{}
 -- Python debugger
 require('dap-python').setup('~/.local/share/virtualenvs/debugpy/bin/python')
 
--- Git blame
-require('gitsigns').setup()
-
+-- Git signs, plus the hunk-review maps for going over what an agent changed.
+require('gitsigns').setup({
+  on_attach = function(bufnr)
+    local gs = require('gitsigns')
+    local map = function(l, r) vim.keymap.set('n', l, r, { buffer = bufnr }) end
+    map(']c', function() gs.nav_hunk('next') end)
+    map('[c', function() gs.nav_hunk('prev') end)
+    map('<leader>hp', gs.preview_hunk)
+    map('<leader>hr', gs.reset_hunk)
+    map('<leader>hd', gs.diffthis)
+  end,
+})

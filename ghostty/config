@@ -1,0 +1,12 @@
+# Matches the nvim colorscheme. Pinned dark, so it ignores the macOS appearance.
+theme = "Iceberg Dark"
+
+# Same font kitty.conf uses. Nerd Font, so NERDTree devicons render.
+font-family = "MesloLGS NF"
+font-size = 15
+
+adjust-cell-height = 10%
+window-padding-x = 4
+window-padding-y = 4
+
+macos-option-as-alt = true
