@@ -1,88 +1,86 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# ============================================================
+# Powerlevel10k instant prompt — keep at the very TOP of ~/.zshrc.
+# Nothing that prints to the console should run above this block.
+# ============================================================
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Langs
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Editor
 export EDITOR="nvim"
 
 # Envs
-export PATH=$HOME/.local/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
 
-# Amplify
-export PATH="$HOME/.amplify/bin:$PATH"
-
+# Docker-compose
+export PATH="/usr/local/bin:$PATH"
 
 # Tmux
 alias t='tmux'
 
-# Short directories
-alias rankmi="cd /Users/yulio_94/rankmi/"
-alias personal="cd /Users/yulio_94/projects/personal/"
-alias courses="cd /Users/yulio_94/projects/courses/"
-alias uyaalak="cd /Users/yulio_94/projects/uyaalak/"
-alias newai="cd /Users/yulio_94/projects/newai/"
-alias matrix="/Users/yulio_94/rankmi/matrix/matrix"
-
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/yulio_94/.oh-my-zsh"
-
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+# Powerlevel10k instant prompt: quiet = on, warnings suppressed.
+# Set to off if Warp complains about console output on launch.
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 plugins=(git
-	 git-prompt
-	 gitignore
-	 alias-finder
-	 command-not-found
-	 compleat
-	 docker
-	 sudo
-	 git
-	 zsh-autosuggestions
-	 zsh-syntax-highlighting
-	 you-should-use
- )
+         git-prompt
+         gitignore
+         command-not-found
+         compleat
+         docker
+         sudo
+         zsh-autosuggestions
+         zsh-syntax-highlighting
+         you-should-use
+)
 
 # ZSH Autosuggest
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080,bold,underline"
+
+# asdf completions MUST be on fpath BEFORE oh-my-zsh runs compinit
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
 # Go
 export PATH="$PATH:/usr/local/go/bin"
 
-# Batigit
-export PATH="/usr/local/bin/batigit/:$PATH"
-
-
-# Matrix
-eval "$(matrix init)"
-
-# Brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Brew — hardcoded output of `brew shellenv` (avoids a subprocess on every launch)
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+export MANPATH="/opt/homebrew/share/man:$MANPATH"
+export INFOPATH="/opt/homebrew/share/info:$INFOPATH"
 
 # rosetta terminal setup
 if [ $(arch) = "i386" ]; then
     alias brew86="/usr/local/bin/brew"
 fi
 
+# iTerm2 shell integration — skip inside Warp (incompatible there, and useless)
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    source ~/.iterm2_shell_integration.zsh
+fi
 
-source ~/.iterm2_shell_integration.zsh
-
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+# asdf runtime (guarded so it won't error on the Go-based asdf where asdf.sh is gone)
+[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ] && . /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 export PATH="$PATH:/Users/yulio_94/dev-tools/flutter/bin"
 
-source /Users/yulio_94/.docker/init-zsh.sh || true # Added by Docker Desktop
-
 source /Users/yulio_94/dotfiles/zsh/utils/zoxide # Zoxide configuration.
 
-
-# EXA
-alias ls='exa -lh --accessed --modified --created -F -l -x --icons --colour auto'
+# EZA
+alias ls='eza -lh --accessed --modified --created -F -l -x --icons --colour auto'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
@@ -95,5 +93,50 @@ alias lt='ls --tree'
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+# pnpm
+export PNPM_HOME="/Users/yulio_94/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# OpenSSL — hardcoded prefix (was 3x `brew --prefix openssl@3` subprocess spawns)
+OPENSSL_PREFIX="/opt/homebrew/opt/openssl@3"
+export LDFLAGS="-L$OPENSSL_PREFIX/lib"
+export CPPFLAGS="-I$OPENSSL_PREFIX/include"
+export PKG_CONFIG_PATH="$OPENSSL_PREFIX/lib/pkgconfig"
+# end OpenSSL
+
+# Jetzig
+export PATH="/Users/yulio_94/projects/zig/packages/jetzig/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/yulio_94/.lmstudio/bin"
+
+# Java (jenv) — lazy-loaded: the slow `jenv init` only runs the first time you call jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+jenv() {
+  unset -f jenv
+  eval "$(command jenv init -)"
+  jenv "$@"
+}
+
+# >>> juliaup initialize >>>
+# !! Contents within this block are managed by juliaup !!
+path=('/Users/yulio_94/.juliaup/bin' $path)
+export PATH
+# <<< juliaup initialize <
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yulio_94/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yulio_94/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yulio_94/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yulio_94/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Krew kubectl
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# Powerlevel10k prompt config — keep at the very BOTTOM.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
