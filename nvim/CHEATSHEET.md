@@ -23,18 +23,27 @@ Precognition draws a mark over every column a motion would land on. Read them as
 | `b` | `b` | start of the previous word |
 | `e` | `e` | end of the current or next word |
 | `⌐` | `%` | the matching bracket |
+| `f` `F` `t` `T` | see below | a single character on this line |
+
+None of these take a modifier. `^` is the caret key by itself, it is not Ctrl,
+the terminal convention where `^T` means Ctrl-T does not apply here.
+
+Capital means backwards, lowercase means forwards. `f` `F` `t` `T` are
+two-keystroke commands: press `T`, then the character. A hint reads as "press
+`F` plus the character under this mark", or for `T`, the character just to its
+left. They are drawn dimmer than the word motions on purpose.
 
 Motions combine with operators. `d` delete, `c` change, `y` yank, `v` select.
 `dw` deletes to the next word, `c$` changes to end of line, `y%` yanks to the
 matching bracket. Add a count in front: `3dw` deletes three words.
 
-The two that save the most keystrokes, and precognition does not draw them:
+`f` and `t` pay off with an operator in front. `dt)` deletes up to the closing
+paren, `ct"` changes up to the quote, `yf;` yanks through the semicolon. `;`
+repeats the jump, `,` repeats it backwards.
 
-- `f<char>` jumps forward to the next `<char>` on the line, `t<char>` stops just
-  before it. `;` repeats the jump, `,` repeats it backwards. `df(` deletes up to
-  and including the next open paren.
-- `ci"` changes everything inside the quotes, from anywhere inside them. Same for
-  `ci(`, `ci{`, `cit` for an HTML tag. Swap `c` for `d`, `y` or `v`.
+The other one worth learning early: `ci"` changes everything inside the quotes,
+from anywhere inside them. Same for `ci(`, `ci{`, and `cit` for an HTML tag. Swap
+`c` for `d`, `y` or `v`.
 
 `.` repeats the last change. `u` undoes, `<C-r>` redoes.
 

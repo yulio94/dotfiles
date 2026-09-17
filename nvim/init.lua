@@ -130,7 +130,11 @@ require'nvim-treesitter.configs'.setup {
 require('render-markdown').setup({})
 
 -- Faint marks on the current line showing where w, b, e, ^ and $ land.
-require('precognition').setup({ startVisible = true })
+-- The f/F/t/T target marks sit a shade dimmer, so the word motions read first.
+require('precognition').setup({
+  startVisible = true,
+  targetedMotionHighlightColor = { link = 'LineNr' },
+})
 
 -- Configs loading of LSP.
 require"fidget".setup{}
