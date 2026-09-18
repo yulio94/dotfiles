@@ -17,6 +17,7 @@ Precognition draws a mark over every column a motion would land on. Read them as
 
 | Mark | Key | Lands on |
 |---|---|---|
+| `0` | `0` | column 1, indent included |
 | `^` | `^` | first non-blank character of the line |
 | `$` | `$` | end of the line |
 | `w` | `w` | start of the next word |
@@ -26,7 +27,10 @@ Precognition draws a mark over every column a motion would land on. Read them as
 | `f` `F` `t` `T` | see below | a single character on this line |
 
 None of these take a modifier. `^` is the caret key by itself, it is not Ctrl,
-the terminal convention where `^T` means Ctrl-T does not apply here.
+the terminal convention where `^T` means Ctrl-T does not apply here. On the
+Latin American layout `^` is a dead key and waits for a second keystroke, so
+reach for `0` instead, it is one key everywhere. `_` also works if the indent
+matters.
 
 Capital means backwards, lowercase means forwards. `f` `F` `t` `T` are
 two-keystroke commands: press `T`, then the character. A hint reads as "press

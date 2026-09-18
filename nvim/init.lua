@@ -129,11 +129,17 @@ require'nvim-treesitter.configs'.setup {
 -- cursor sits on un-renders itself, so the file stays editable.
 require('render-markdown').setup({})
 
--- Faint marks on the current line showing where w, b, e, ^ and $ land.
+-- Faint marks on the current line showing where w, b, e, 0 and $ land.
 -- The f/F/t/T target marks sit a shade dimmer, so the word motions read first.
+-- 0 outranks ^ because ^ is a dead key on the Latin American layout. They target
+-- the same column on an unindented line, and the higher prio is the one drawn.
 require('precognition').setup({
   startVisible = true,
   targetedMotionHighlightColor = { link = 'LineNr' },
+  hints = {
+    Caret = { text = '^', prio = 1 },
+    Zero = { text = '0', prio = 2 },
+  },
 })
 
 -- Configs loading of LSP.
