@@ -77,11 +77,15 @@ space: `ysiw(` gives `( word )`, `ysiw)` gives `(word)`.
 | `:Buffers` | fzf over open buffers |
 
 vim-rooter sets the working directory to the project root, so `:Files` searches
-the repo rather than wherever nvim started.
+the repo rather than wherever nvim started. Both `:Files` and `:Rg` read the
+`.gitignore`, which keeps a rust `target/` out of the results.
 
 ## LSP
 
-Attached to python (ruff + ty), go, and lua buffers.
+Attached to python (ruff + ty), rust (rust-analyzer), typescript (ts_ls +
+biome), go, lua, and to css and json through biome. biome runs the copy in the
+project's own `node_modules` and reads its `biome.json`, so nvim formats a file
+the same way `pnpm check` does.
 
 | Key | Does |
 |---|---|
@@ -104,6 +108,10 @@ operator and `s` in LSP buffers.
 
 Diagnostics are drawn inline at the end of the offending line. `sl` still opens
 the full message in a float when the line is too narrow to show it.
+
+`.rs`, `.ts`, `.js`, `.css` and `.json` format on write. Everything else waits
+for `df`. Only one server formats each of those, biome for the frontend and
+rustfmt through rust-analyzer for `src-tauri`, so nothing fights over a buffer.
 
 ## Git, and reviewing what an agent changed
 

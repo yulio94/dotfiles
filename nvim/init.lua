@@ -124,9 +124,20 @@ vim.lsp.config('elixirls', {
   },
 })
 
+-- ts_ls and biome both claim to format typescript. biome owns it, it is the
+-- project's own tool and reads its biome.json. lspconfig runs the copy in
+-- node_modules, so there is nothing global to install for it.
+vim.lsp.config('ts_ls', {
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
+})
+
 -- ruff = lint + format (reads [tool.ruff] from the project's pyproject.toml),
--- ty = types. Both already on PATH.
-vim.lsp.enable({ 'ruff', 'ty', 'gopls', 'lua_ls', 'elixirls' })
+-- ty = types. rust_analyzer comes from rustup, the rest are on PATH.
+vim.lsp.enable({ 'ruff', 'ty', 'gopls', 'lua_ls', 'elixirls',
+                 'rust_analyzer', 'ts_ls', 'biome' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
@@ -142,12 +153,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- virtual_lines: that draws below the cursor line, where precognition already is.
 vim.diagnostic.config({ virtual_text = true })
 
+-- Format on write for the tauri stack, rustfmt through rust_analyzer and biome
+-- for the frontend. The other languages still format on demand with df.
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.rs', '*.ts', '*.js', '*.css', '*.json' },
+  callback = function() vim.lsp.buf.format() end,
+})
+
 
 require'nvim-treesitter.configs'.setup {
   -- markdown_inline is separate from markdown on purpose: the main grammar does
   -- block structure, the inline one does emphasis, links and inline code.
   ensure_installed = {"elixir", "python", "bash", "javascript", "typescript", "go", "json",
-                      "html", "markdown", "markdown_inline"},
+                      "html", "css", "rust", "toml", "markdown", "markdown_inline"},
   sync_install = false,
   ignore_install = { },
   indent = {enable = true},

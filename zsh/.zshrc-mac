@@ -91,6 +91,11 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 
+# FZF — fzf's own walker skips .git and node_modules but not build dirs, so
+# :Files in a rust repo reads all of target/. fd reads the .gitignore instead.
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # bun completions
 [ -s "/Users/yulio_94/.bun/_bun" ] && source "/Users/yulio_94/.bun/_bun"
 
