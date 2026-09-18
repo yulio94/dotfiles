@@ -80,6 +80,45 @@ vim-rooter sets the working directory to the project root, so `:Files` searches
 the repo rather than wherever nvim started. Both `:Files` and `:Rg` read the
 `.gitignore`, which keeps a rust `target/` out of the results.
 
+## Creating and moving files
+
+vim has no "new file" action. `:e src/thing.ts` opens an empty buffer pointed at
+that path, and `:w` is what puts it on disk. The write fails with `E212` when
+the directory does not exist. vim creates files and never directories.
+
+| Key | Does |
+|---|---|
+| `:e path/to/new.ts` | Open the buffer, `:w` creates the file |
+| `:!mkdir -p src/features` | Make the directory first |
+| `:sav other.ts` | Save as. The old file stays, you edit the new one |
+| `:GRename new.ts` | Rename in place, staged in git |
+| `:GMove src/core/store.ts` | Move to a path from the repo root, staged |
+| `:GDelete` | Delete the file and close the buffer |
+
+Paths are relative to the project root, vim-rooter already put the cwd there.
+
+The three fugitive commands move the file, stage the change and repoint the open
+buffer. `:!mv` leaves the buffer on a file that is gone, and git seeing a delete
+next to an untracked add.
+
+In NERDTree, press `m` on a node for the menu, then:
+
+| In the menu | Does |
+|---|---|
+| `a` | Add a child node. A trailing `/` makes it a folder |
+| `m` | Move or rename |
+| `d` | Delete |
+| `c` | Copy |
+| `p` | Copy the path to the clipboard |
+
+`a` takes a whole path, so `components/Button.ts` makes the directory and the
+file at once.
+
+`a` on its own, without `m` first, gives `E21: Cannot make changes, 'modifiable'
+is off`. Only `m` is a tree mapping. The rest are menu shortcuts, and `a` in the
+tree runs vim's append, which cannot open a read-only buffer. `?` inside the tree
+lists every key it does map.
+
 ## LSP
 
 Attached to python (ruff + ty), rust (rust-analyzer), typescript (ts_ls +
