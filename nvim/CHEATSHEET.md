@@ -49,6 +49,21 @@ The other one worth learning early: `ci"` changes everything inside the quotes,
 from anywhere inside them. Same for `ci(`, `ci{`, and `cit` for an HTML tag. Swap
 `c` for `d`, `y` or `v`.
 
+`ci"` works on what is inside the quotes. nvim-surround works on the quotes
+themselves.
+
+| Key | Does |
+|---|---|
+| `cs"'` | Change the surrounding `"` to `'` |
+| `ds(` | Delete the surrounding parens, keep what is inside |
+| `ysiw"` | Wrap the word under the cursor in quotes |
+| `yss)` | Wrap the whole line |
+| `S(` in visual | Wrap the selection |
+
+`ys` takes a motion, so `ys$"` quotes to the end of the line and `ys2w(` wraps
+two words. The closing bracket gives a tight wrap, the opening one pads with a
+space: `ysiw(` gives `( word )`, `ysiw)` gives `(word)`.
+
 `.` repeats the last change. `u` undoes, `<C-r>` redoes.
 
 ## Files and buffers
@@ -87,6 +102,9 @@ Attached to python (ruff + ty), go, and lua buffers.
 The `gr*` maps are Neovim defaults, not ours. `df` and `sl` shadow the `df{char}`
 operator and `s` in LSP buffers.
 
+Diagnostics are drawn inline at the end of the offending line. `sl` still opens
+the full message in a float when the line is too narrow to show it.
+
 ## Git, and reviewing what an agent changed
 
 | Key | Does |
@@ -109,10 +127,35 @@ edits, and undo survives closing nvim.
 |---|---|
 | `<leader>mr` | Toggle rendering, to edit the raw source |
 
+## Debugging
+
+Python only. Point at a file, set a breakpoint, then continue to start it.
+
+| Key | Does |
+|---|---|
+| `<leader>db` | Toggle a breakpoint on this line |
+| `<leader>dc` | Start, or continue to the next breakpoint |
+| `<leader>ds` | Step over |
+| `<leader>di` | Step into |
+| `<leader>do` | Step out |
+| `<leader>dq` | Stop the session |
+
+While stopped, every variable in view gets its current value drawn at the end of
+its line.
+
 ## Other
 
 | Key | Does |
 |---|---|
-| `<leader>c<Space>` | Toggle comment on the line or selection |
+| `gcc` | Toggle comment on the line |
+| `gc{motion}` | Toggle comment over a motion, `gcap` for a paragraph |
+| `gc` in visual | Toggle comment on the selection |
 | `<C-n>` | Multiple cursors, on the word under the cursor |
 | `<C-y>,` (insert) | Expand an emmet abbreviation |
+
+## Editor defaults
+
+`y` and `p` use the macOS clipboard, so a yank in nvim pastes into any app.
+Searching with `/` ignores case until the pattern has a capital in it, then it
+matches exactly. Splits open right and below. New indents are 2 spaces, except
+in go and python, which set their own.

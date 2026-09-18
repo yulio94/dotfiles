@@ -23,9 +23,6 @@ call plug#begin(stdpath('config') . '/plugged')
 	" Autopairs
 	Plug 'jiangmiao/auto-pairs'
 
-	" Comment plugin
-	Plug 'scrooloose/nerdcommenter'
-
 	" NerdTree
 	Plug 'scrooloose/nerdtree'|
             \ Plug 'Xuyuanp/nerdtree-git-plugin'|
@@ -57,9 +54,6 @@ call plug#begin(stdpath('config') . '/plugged')
 
 	" LINTING
 
-	" Highlight yank
-	Plug 'machakann/vim-highlightedyank'
-
 	" Syntax
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -73,6 +67,9 @@ call plug#begin(stdpath('config') . '/plugged')
 
 	" Motion hints, drawn on the current line
 	Plug 'tris203/precognition.nvim'
+
+	" Surround: change, add and delete the quotes or brackets around a motion
+	Plug 'kylechui/nvim-surround'
 
 	" OTHERS
 

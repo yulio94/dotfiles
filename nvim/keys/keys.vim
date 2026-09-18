@@ -3,12 +3,6 @@
 " Number
 set number relativenumber
 
-" HighlightedyankRegion
-hi HighlightedyankRegion cterm=reverse gui=reverse
-
-" set highlight duration time to 1000 ms, i.e., 1 second
-let g:highlightedyank_highlight_duration = 1000
-
 " vim-rooter echoes the cwd on every startup
 let g:rooter_silent_chdir = 1
 

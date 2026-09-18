@@ -8,6 +8,34 @@ vim.cmd('source $HOME/.config/nvim/keys/keys.vim')
 vim.cmd.colorscheme "iceberg"
 
 
+-- Editor basics. signcolumn stays open so the text does not shift sideways the
+-- moment a gitsign or a diagnostic appears.
+vim.o.clipboard = 'unnamedplus'
+vim.o.scrolloff = 8
+vim.o.signcolumn = 'yes'
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- nvim only ships indent settings for some filetypes. python and markdown get
+-- their own, lua and javascript fall through to tabs at width 8 without this.
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+
+-- gofmt writes tabs, so go opts back out.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'go',
+  callback = function() vim.bo.expandtab = false end,
+})
+
+-- Replaces vim-highlightedyank, which nvim absorbed as vim.hl.on_yank.
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function() vim.hl.on_yank({ timeout = 200 }) end,
+})
+
+
 -- Claude Code writes files from the tmux pane next door. Reload what changed
 -- on disk, and keep undo across sessions so its edits stay revertible.
 vim.o.autoread = true
@@ -110,6 +138,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- virtual_text is off by default since 0.11, so errors were gutter-only. Not
+-- virtual_lines: that draws below the cursor line, where precognition already is.
+vim.diagnostic.config({ virtual_text = true })
+
 
 require'nvim-treesitter.configs'.setup {
   -- markdown_inline is separate from markdown on purpose: the main grammar does
@@ -129,6 +161,10 @@ require'nvim-treesitter.configs'.setup {
 -- cursor sits on un-renders itself, so the file stays editable.
 require('render-markdown').setup({})
 
+-- cs"' changes the surrounding quotes, ysiw( wraps a word, ds( unwraps. The
+-- operator half of what ci" does.
+require('nvim-surround').setup({})
+
 -- Faint marks on the current line showing where w, b, e, 0 and $ land.
 -- The f/F/t/T target marks sit a shade dimmer, so the word motions read first.
 -- 0 outranks ^ because ^ is a dead key on the Latin American layout. They target
@@ -145,8 +181,18 @@ require('precognition').setup({
 -- Configs loading of LSP.
 require"fidget".setup{}
 
--- Python debugger
+-- Python debugger. dap-virtual-text draws each variable's current value at the
+-- end of its line while stopped, and needs its own setup call to do anything.
 require('dap-python').setup('~/.local/share/virtualenvs/debugpy/bin/python')
+require('nvim-dap-virtual-text').setup({})
+
+local dap = require('dap')
+vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint)
+vim.keymap.set('n', '<leader>dc', dap.continue)
+vim.keymap.set('n', '<leader>ds', dap.step_over)
+vim.keymap.set('n', '<leader>di', dap.step_into)
+vim.keymap.set('n', '<leader>do', dap.step_out)
+vim.keymap.set('n', '<leader>dq', dap.terminate)
 
 -- Git signs, plus the hunk-review maps for going over what an agent changed.
 require('gitsigns').setup({
