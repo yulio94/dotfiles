@@ -161,19 +161,20 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 
-require'nvim-treesitter.configs'.setup {
-  -- markdown_inline is separate from markdown on purpose: the main grammar does
-  -- block structure, the inline one does emphasis, links and inline code.
-  ensure_installed = {"elixir", "python", "bash", "javascript", "typescript", "go", "json",
-                      "html", "css", "rust", "toml", "markdown", "markdown_inline"},
-  sync_install = false,
-  ignore_install = { },
-  indent = {enable = true},
-  highlight = {
-    enable = true,
-    disable = { },
-  },
-}
+-- The main branch only installs parsers. Highlight and indent are turned on per
+-- buffer below, pcall because a filetype without a parser would throw.
+-- markdown_inline is separate from markdown on purpose: the main grammar does
+-- block structure, the inline one does emphasis, links and inline code.
+require('nvim-treesitter').install({ "elixir", "python", "bash", "javascript", "typescript",
+  "go", "json", "html", "css", "rust", "toml", "markdown", "markdown_inline" })
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    if pcall(vim.treesitter.start, args.buf) then
+      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
+})
 
 -- Renders headings, code blocks, tables and checkboxes in place. The line the
 -- cursor sits on un-renders itself, so the file stays editable.

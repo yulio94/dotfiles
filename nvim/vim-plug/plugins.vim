@@ -55,7 +55,7 @@ call plug#begin(stdpath('config') . '/plugged')
 	" LINTING
 
 	" Syntax
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
 
 	" Renders markdown in the buffer
 	Plug 'MeanderingProgrammer/render-markdown.nvim'
