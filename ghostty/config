@@ -13,3 +13,18 @@ macos-option-as-alt = true
 
 # Every window attaches to one "main" session. resurrect/continuum keep it alive.
 command = /opt/homebrew/bin/tmux new -A -s main
+
+# Agents ping on finish/permission. Bounce the dock and badge the title.
+desktop-notifications = true
+bell-features = system,attention,title
+
+# Agents copy via OSC 52; let them, without the prompt.
+clipboard-write = allow
+copy-on-select = clipboard
+
+# Drop-down terminal for a quick one-off prompt.
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
+
+background-opacity = 0.92
+background-blur = 20
