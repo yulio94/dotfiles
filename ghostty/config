@@ -18,8 +18,8 @@ command = /opt/homebrew/bin/tmux new -A -s main
 desktop-notifications = true
 bell-features = system,attention,title
 
-# Agents copy via OSC 52; let them, without the prompt.
-clipboard-write = allow
+# Agents copy via OSC 52. Ask, so terminal output can't swap the clipboard silently.
+clipboard-write = ask
 copy-on-select = clipboard
 
 # Drop-down terminal for a quick one-off prompt.
